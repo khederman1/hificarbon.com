@@ -1,3 +1,157 @@
-<html>
-  hello
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HiFiCarbon — Innovating for a cleaner, greener future." />
+  <title>HiFiCarbon</title>
+  <style>
+    :root {
+      --gray-bg: #f2f2f2;
+      --dark-gray: #333333;
+      --green: #39b54a;
+      --light-green: #7ddc82;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--gray-bg);
+      color: var(--dark-gray);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 1.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      color: var(--green);
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 10%;
+    }
+
+    section {
+      max-width: 800px;
+      margin-bottom: 3rem;
+    }
+
+    .hero {
+      padding: 2rem 0;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--dark-gray);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .divider {
+      width: 80px;
+      height: 4px;
+      background-color: var(--green);
+      border-radius: 2px;
+      margin: 2rem auto;
+    }
+
+    .placeholder {
+      border: 2px dashed var(--light-green);
+      border-radius: 8px;
+      padding: 2rem;
+      color: #666;
+      font-style: italic;
+      background-color: rgba(57, 181, 74, 0.05);
+    }
+
+    footer {
+      background-color: var(--dark-gray);
+      color: white;
+      text-align: center;
+      padding: 2rem 5%;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>HiFiCarbon</h1>
+    <nav>
+      <!-- Future nav links placeholder -->
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>Building the Future of Green Technology</h2>
+      <div class="divider"></div>
+      <p>HiFiCarbon is currently operating in stealth mode — innovating sustainable solutions for a cleaner planet.</p>
+    </section>
+
+    <section>
+      <h3>About Us</h3>
+      <div class="placeholder">
+        [Placeholder for company background or mission blurb — describe vision, innovation focus, or founding story.]
+      </div>
+    </section>
+
+    <section>
+      <h3>Media / Visual Placeholder</h3>
+      <div class="placeholder">
+        [Insert image, product render, or concept video here]
+      </div>
+    </section>
+
+    <section>
+      <h3>Contact / Stay Updated</h3>
+      <div class="placeholder">
+        [Placeholder for contact form, newsletter sign-up, or “notify me” section.]
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; <span id="year"></span> HiFiCarbon. All rights reserved. |
+    <a href="mailto:info@hificarbon.com">info@hificarbon.com</a>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
