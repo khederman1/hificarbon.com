@@ -8,686 +8,681 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@700;800&family=Rajdhani:wght@400;700&family=DM+Mono:wght@300;400&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --black: #050508;
-    --off-black: #0c0c10;
-    --dark: #111118;
-    --panel: #161620;
-    --border: rgba(255,255,255,0.08);
-    --border-bright: rgba(255,255,255,0.18);
-    --accent: #00e5a0;
-    --accent-dim: rgba(0,229,160,0.12);
-    --accent-glow: rgba(0,229,160,0.25);
-    --text: #f0f0f8;
-    --muted: rgba(240,240,248,0.45);
-    --faint: rgba(240,240,248,0.15);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.5;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-    padding: 1.4rem 4rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-    background: rgba(5,5,8,0.7);
-    backdrop-filter: blur(20px);
-  }
-
-  .nav-logo {
-    font-family: 'Barlow', sans-serif;
-    font-weight: 800;
-    font-size: 1.15rem;
-    letter-spacing: 0.04em;
-    color: var(--text);
-    text-decoration: none;
-  }
-  .nav-logo span { color: var(--accent); }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-  .nav-links a {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--accent); }
-
-  .nav-cta {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    padding: 0.55rem 1.3rem;
-    background: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none;
-  }
-  .nav-cta:hover { background: var(--accent); color: var(--black); }
-
-  /* HERO */
-  #hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8rem 4rem 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-grid-bg {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0,229,160,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,160,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 100%);
-  }
-
-  .hero-orb {
-    position: absolute;
-    width: 700px;
-    height: 700px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,229,160,0.07) 0%, transparent 70%);
-    top: 50%;
-    right: -10%;
-    transform: translateY(-50%);
-    pointer-events: none;
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    border: 1px solid rgba(0,229,160,0.3);
-    padding: 0.4rem 0.9rem;
-    margin-bottom: 2.5rem;
-    width: fit-content;
-    animation: fadeUp 0.8s ease both;
-  }
-  .hero-badge::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.7); }
-  }
-
-  h1 {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: clamp(3.5rem, 7vw, 7rem);
-    line-height: 0.95;
-    letter-spacing: -0.02em;
-    max-width: 14ch;
-    animation: fadeUp 0.8s 0.1s ease both;
-  }
-  h1 em {
-    font-style: normal;
-    color: var(--accent);
-    display: block;
-  }
-
-  .hero-sub {
-    margin-top: 2.5rem;
-    font-size: 1.05rem;
-    color: var(--muted);
-    max-width: 42ch;
-    line-height: 1.75;
-    animation: fadeUp 0.8s 0.2s ease both;
-  }
-
-  .hero-actions {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-top: 3rem;
-    animation: fadeUp 0.8s 0.3s ease both;
-  }
-
-  .btn-primary {
-    background: var(--accent);
-    color: var(--black);
-    font-family: 'DM Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.95rem 2.2rem;
-    border: none;
-    cursor: pointer;
-    font-weight: 400;
-    text-decoration: none;
-    transition: all 0.2s;
-    display: inline-block;
-  }
-  .btn-primary:hover { background: #00ffb0; }
-
-  .btn-ghost {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: color 0.2s;
-  }
-  .btn-ghost:hover { color: var(--text); }
-  .btn-ghost::after { content: '→'; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* SECTIONS */
-  section { padding: 7rem 4rem; position: relative; }
-
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-  }
-
-  .section-title {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    max-width: 20ch;
-  }
-
-  /* ABOUT */
-  #about {
-    background: var(--off-black);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .about-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-  }
-
-  .about-body {
-    font-size: 1rem;
-    color: var(--muted);
-    line-height: 1.85;
-    margin-top: 2rem;
-  }
-
-  .about-visual {
-    position: relative;
-    height: 380px;
-  }
-
-  .hex-grid {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    align-content: flex-start;
-    opacity: 0.6;
-  }
-
-  .hex {
-    width: 44px;
-    height: 44px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    transition: background 0.3s, border 0.3s;
-  }
-  .hex.lit {
-    background: var(--accent-dim);
-    border-color: rgba(0,229,160,0.3);
-  }
-
-  .hex-label {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 4.5rem;
-    color: var(--faint);
-    letter-spacing: -0.04em;
-    line-height: 1;
-    pointer-events: none;
-  }
-
-    /* TEAM */
-  #team {
-    background: var(--off-black);
-    border-top: 1px solid var(--border);
-  }
-
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 4rem;
-  }
-
-  .team-card {
-    border: 1px solid var(--border);
-    padding: 2rem;
-    background: var(--panel);
-  }
-
-  .team-avatar {
-    width: 56px;
-    height: 56px;
-    border: 1px solid var(--border-bright);
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    color: var(--accent);
-    letter-spacing: 0.05em;
-  }
-
-  .team-name {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 1.05rem;
-    letter-spacing: -0.01em;
-    margin-bottom: 0.3rem;
-  }
-
-  .team-role {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1rem;
-  }
-
-  .team-bio {
-    font-size: 0.85rem;
-    color: var(--muted);
-    line-height: 1.75;
-  }
-
-  /* CONTACT */
-  #contact {
-    background: var(--black);
-    border-top: 1px solid var(--border);
-  }
-
-  .contact-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: start;
-  }
-
-  .contact-sub {
-    font-size: 1rem;
-    color: var(--muted);
-    margin-top: 1.5rem;
-    line-height: 1.75;
-    max-width: 38ch;
-  }
-
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  input, textarea, select {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    padding: 0.85rem 1rem;
-    outline: none;
-    transition: border 0.2s;
-    resize: none;
-    width: 100%;
-  }
-  input:focus, textarea:focus { border-color: var(--accent); }
-  input::placeholder, textarea::placeholder { color: var(--faint); }
-  textarea { height: 120px; }
-
-  .form-submit {
-    background: var(--accent);
-    color: var(--black);
-    border: none;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 1rem 2rem;
-    cursor: pointer;
-    transition: background 0.2s;
-    align-self: flex-start;
-  }
-  .form-submit:hover { background: #00ffb0; }
-
-  /* FOOTER */
-  footer {
-    padding: 2.5rem 4rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--off-black);
-  }
-
-  .footer-logo {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.04em;
-  }
-  .footer-logo span { color: var(--accent); }
-
-  .footer-copy {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.1em;
-    color: var(--faint);
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-  .footer-links a {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--faint);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer-links a:hover { color: var(--accent); }
-
-  /* REVEAL */
-  .reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    nav { padding: 1.2rem 1.5rem; }
-    .nav-links { display: none; }
-    section { padding: 5rem 1.5rem; }
-    #hero { padding: 7rem 1.5rem 4rem; }
-    .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-    .solutions-grid { grid-template-columns: 1fr; }
-    .sol-card { border-right: none; border-bottom: 1px solid var(--border); }
-    .impact-inner { grid-template-columns: 1fr 1fr; }
-    .team-grid { grid-template-columns: 1fr; }
-    .about-visual { height: 200px; }
-    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
-    .form-row { grid-template-columns: 1fr; }
-    #impact { padding: 4rem 1.5rem; }
-  }
+:root {
+--black: #050508;
+--off-black: #0c0c10;
+--dark: #111118;
+--panel: #161620;
+--border: rgba(255,255,255,0.08);
+--border-bright: rgba(255,255,255,0.18);
+--accent: #00e5a0;
+--accent-dim: rgba(0,229,160,0.12);
+--accent-glow: rgba(0,229,160,0.25);
+--text: #f0f0f8;
+--muted: rgba(240,240,248,0.45);
+--faint: rgba(240,240,248,0.15);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+background: var(--black);
+color: var(--text);
+font-family: 'DM Sans', sans-serif;
+font-weight: 300;
+line-height: 1.6;
+overflow-x: hidden;
+}
+body::before {
+content: '';
+position: fixed;
+inset: 0;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+pointer-events: none;
+z-index: 0;
+opacity: 0.5;
+}
+/* NAV */
+nav {
+position: fixed;
+top: 0;
+width: 100%;
+z-index: 100;
+padding: 1.4rem 4rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+border-bottom: 1px solid var(--border);
+background: rgba(5,5,8,0.7);
+backdrop-filter: blur(20px);
+}
+.nav-logo {
+font-family: 'Barlow', sans-serif;
+font-weight: 800;
+font-size: 1.15rem;
+letter-spacing: 0.04em;
+color: var(--text);
+text-decoration: none;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links {
+display: flex;
+gap: 2.5rem;
+list-style: none;
+}
+.nav-links a {
+font-family: 'DM Mono', monospace;
+font-size: 0.72rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(--muted);
+text-decoration: none;
+transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-cta {
+font-family: 'DM Mono', monospace;
+font-size: 0.72rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+border: 1px solid var(--accent);
+color: var(--accent);
+padding: 0.55rem 1.3rem;
+background: none;
+cursor: pointer;
+transition: all 0.2s;
+text-decoration: none;
+}
+.nav-cta:hover { background: var(--accent); color: var(--black); }
+/* HERO */
+#hero {
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+padding: 8rem 4rem 4rem;
+position: relative;
+overflow: hidden;
+}
+.hero-grid-bg {
+position: absolute;
+inset: 0;
+background-image:
+linear-gradient(rgba(0,229,160,0.04) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,229,160,0.04) 1px, transparent 1px);
+background-size: 60px 60px;
+mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 100%);
+}
+.hero-orb {
+position: absolute;
+width: 700px;
+height: 700px;
+border-radius: 50%;
+background: radial-gradient(circle, rgba(0,229,160,0.07) 0%, transparent 70%);
+top: 50%;
+right: -10%;
+transform: translateY(-50%);
+pointer-events: none;
+}
+.hero-badge {
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+font-family: 'DM Mono', monospace;
+font-size: 0.68rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--accent);
+border: 1px solid rgba(0,229,160,0.3);
+padding: 0.4rem 0.9rem;
+margin-bottom: 2.5rem;
+width: fit-content;
+animation: fadeUp 0.8s ease both;
+}
+.hero-badge::before {
+content: '';
+width: 6px;
+height: 6px;
+border-radius: 50%;
+background: var(--accent);
+animation: pulse 2s infinite;
+}
+@keyframes pulse {
+0%, 100% { opacity: 1; transform: scale(1); }
+50% { opacity: 0.4; transform: scale(0.7); }
+}
+h1 {
+font-family: 'Rajdhani', sans-serif;
+font-weight: 700;
+font-size: clamp(3.5rem, 7vw, 7rem);
+line-height: 0.95;
+letter-spacing: -0.02em;
+max-width: 14ch;
+animation: fadeUp 0.8s 0.1s ease both;
+}
+h1 em {
+font-style: normal;
+color: var(--accent);
+display: block;
+}
+.hero-sub {
+margin-top: 2.5rem;
+font-size: 1.05rem;
+color: var(--muted);
+max-width: 42ch;
+line-height: 1.75;
+animation: fadeUp 0.8s 0.2s ease both;
+}
+.hero-actions {
+display: flex;
+align-items: center;
+gap: 2rem;
+margin-top: 3rem;
+animation: fadeUp 0.8s 0.3s ease both;
+}
+.btn-primary {
+background: var(--accent);
+color: var(--black);
+font-family: 'DM Mono', monospace;
+font-size: 0.78rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+padding: 0.95rem 2.2rem;
+border: none;
+cursor: pointer;
+font-weight: 400;
+text-decoration: none;
+transition: all 0.2s;
+display: inline-block;
+}
+.btn-primary:hover { background: #00ffb0; }
+.btn-ghost {
+font-family: 'DM Mono', monospace;
+font-size: 0.78rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--muted);
+text-decoration: none;
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+transition: color 0.2s;
+}
+.btn-ghost:hover { color: var(--text); }
+.btn-ghost::after { content: '→'; }
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+/* SECTIONS */
+section { padding: 7rem 4rem; position: relative; }
+.section-label {
+font-family: 'DM Mono', monospace;
+font-size: 0.68rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: var(--accent);
+margin-bottom: 1.5rem;
+}
+.section-title {
+font-family: 'Rajdhani', sans-serif;
+font-weight: 700;
+font-size: clamp(2rem, 3.5vw, 3rem);
+line-height: 1.1;
+letter-spacing: -0.02em;
+max-width: 20ch;
+}
+/* ABOUT */
+#about {
+background: var(--off-black);
+border-top: 1px solid var(--border);
+border-bottom: 1px solid var(--border);
+}
+.about-inner {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 6rem;
+align-items: center;
+}
+.about-body {
+font-size: 1rem;
+color: var(--muted);
+line-height: 1.85;
+margin-top: 2rem;
+}
+.about-visual {
+position: relative;
+height: 380px;
+}
+.hex-grid {
+position: absolute;
+inset: 0;
+display: flex;
+flex-wrap: wrap;
+gap: 4px;
+align-content: flex-start;
+opacity: 0.6;
+}
+.hex {
+width: 44px;
+height: 44px;
+background: var(--panel);
+border: 1px solid var(--border);
+clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+transition: background 0.3s, border 0.3s;
+}
+.hex.lit {
+background: var(--accent-dim);
+border-color: rgba(0,229,160,0.3);
+}
+.hex-label {
+position: absolute;
+bottom: 0;
+right: 0;
+font-family: 'Rajdhani', sans-serif;
+font-weight: 700;
+font-size: 4.5rem;
+color: var(--faint);
+letter-spacing: -0.04em;
+line-height: 1;
+pointer-events: none;
+}
+/* TEAM */
+#team {
+background: var(--off-black);
+border-top: 1px solid var(--border);
+}
+.team-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 2rem;
+margin-top: 4rem;
+}
+.team-card {
+border: 1px solid var(--border);
+padding: 2rem;
+background: var(--panel);
+}
+.team-avatar {
+width: 56px;
+height: 56px;
+border: 1px solid var(--border-bright);
+margin-bottom: 1.5rem;
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: 'Rajdhani', sans-serif;
+font-weight: 700;
+font-size: 0.85rem;
+color: var(--accent);
+letter-spacing: 0.05em;
+}
+.team-name {
+font-family: 'Rajdhani', sans-serif;
+font-weight: 700;
+font-size: 1.05rem;
+letter-spacing: -0.01em;
+margin-bottom: 0.3rem;
+}
+.team-role {
+font-family: 'DM Mono', monospace;
+font-size: 0.65rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(--accent);
+margin-bottom: 1rem;
+}
+.team-bio {
+font-size: 0.85rem;
+color: var(--muted);
+line-height: 1.75;
+}
+/* CONTACT */
+#contact {
+background: var(--black);
+border-top: 1px solid var(--border);
+}
+.contact-inner {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 6rem;
+align-items: start;
+}
+.contact-sub {
+font-size: 1rem;
+color: var(--muted);
+margin-top: 1.5rem;
+line-height: 1.75;
+max-width: 38ch;
+}
+.contact-form {
+display: flex;
+flex-direction: column;
+gap: 1rem;
+}
+.form-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1rem;
+}
+.form-group {
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
+}
+label {
+font-family: 'DM Mono', monospace;
+font-size: 0.65rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--muted);
+}
+input, textarea, select {
+background: var(--panel);
+border: 1px solid var(--border);
+color: var(--text);
+font-family: 'DM Sans', sans-serif;
+font-size: 0.9rem;
+padding: 0.85rem 1rem;
+outline: none;
+transition: border 0.2s;
+resize: none;
+width: 100%;
+}
+input:focus, textarea:focus { border-color: var(--accent); }
+input::placeholder, textarea::placeholder { color: var(--faint); }
+textarea { height: 120px; }
+.form-submit {
+background: var(--accent);
+color: var(--black);
+border: none;
+font-family: 'DM Mono', monospace;
+font-size: 0.78rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+padding: 1rem 2rem;
+cursor: pointer;
+transition: background 0.2s;
+align-self: flex-start;
+}
+.form-submit:hover { background: #00ffb0; }
+.form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.form-status {
+font-family: 'DM Mono', monospace;
+font-size: 0.75rem;
+letter-spacing: 0.05em;
+margin-top: 0.25rem;
+display: none;
+}
+.form-status.success { display: block; color: var(--accent); }
+.form-status.error { display: block; color: #ff6b6b; }
+/* FOOTER */
+footer {
+padding: 2.5rem 4rem;
+border-top: 1px solid var(--border);
+display: flex;
+align-items: center;
+justify-content: space-between;
+background: var(--off-black);
+}
+.footer-logo {
+font-family: 'Rajdhani', sans-serif;
+font-weight: 700;
+font-size: 0.95rem;
+letter-spacing: 0.04em;
+}
+.footer-logo span { color: var(--accent); }
+.footer-copy {
+font-family: 'DM Mono', monospace;
+font-size: 0.62rem;
+letter-spacing: 0.1em;
+color: var(--faint);
+}
+.footer-links {
+display: flex;
+gap: 2rem;
+list-style: none;
+}
+.footer-links a {
+font-family: 'DM Mono', monospace;
+font-size: 0.62rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(--faint);
+text-decoration: none;
+transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--accent); }
+/* REVEAL */
+.reveal {
+opacity: 0;
+transform: translateY(28px);
+transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+/* RESPONSIVE */
+@media (max-width: 900px) {
+nav { padding: 1.2rem 1.5rem; }
+.nav-links { display: none; }
+section { padding: 5rem 1.5rem; }
+#hero { padding: 7rem 1.5rem 4rem; }
+.about-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+.solutions-grid { grid-template-columns: 1fr; }
+.sol-card { border-right: none; border-bottom: 1px solid var(--border); }
+.impact-inner { grid-template-columns: 1fr 1fr; }
+.team-grid { grid-template-columns: 1fr; }
+.about-visual { height: 200px; }
+footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+.form-row { grid-template-columns: 1fr; }
+#impact { padding: 4rem 1.5rem; }
+}
 </style>
 </head>
 <body>
-
 <!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-logo">HiFi <span>Carbon</span></a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#team">Team</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="#contact" class="nav-cta">Get in touch</a>
+<a href="#hero" class="nav-logo">HiFi <span>Carbon</span></a>
+<ul class="nav-links">
+<li><a href="#about">About</a></li>
+<li><a href="#team">Team</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+<a href="#contact" class="nav-cta">Get in touch</a>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-orb"></div>
-
-  <div class="hero-badge">Est. 2025 · Arlington, MA & Bristol, UK</div>
-
-  <h1>Redefining <em>Renewables.</em></h1>
-
-  <p class="hero-sub">
-    HiFi Carbon wants to change the way people think about our world and our atmosphere. Our solutions present the first of their kind on the planet.
-  </p>
-
-  <div class="hero-actions">
-    <a href="#team" class="btn-primary">Our Team</a>
-    <a href="#about" class="btn-ghost">Our Technology</a>
-  </div>
+<div class="hero-grid-bg"></div>
+<div class="hero-orb"></div>
+<div class="hero-badge">Est. 2025 · Arlington, MA & Bristol, UK</div>
+<h1>Redefining <em>Renewables.</em></h1>
+<p class="hero-sub">
+HiFi Carbon wants to change the way people think about our world and our atmosphere. Our solutions present the first of their kind on the planet.
+</p>
+<div class="hero-actions">
+<a href="#team" class="btn-primary">Our Team</a>
+<a href="#about" class="btn-ghost">Our Technology</a>
+</div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="about-inner">
-    <div class="reveal">
-      <div class="section-label">// About</div>
-      <h2 class="section-title">A 21st Century Solution to a 21st Century Problem.</h2>
-      <p class="about-body">
-        HiFi Carbon wants to change the carbon conversation. Founded in 2025 by a leading researcher and an over-caffeinated engineer, HiFi Carbon's solution represents a new prism to view energy production — a prism that will change the way we think about our world and our atmosphere.
-      </p>
-      <p class="about-body" style="margin-top: 1rem;">
-        HiFi Carbon believes this solution will allow for a shared vision of the future of energy — a new technical lens that will allow us to leverage existing infrastructure, lower costs, and facilitate the development of new, valuable industries.
-      </p>
-    </div>
-  </div>
+<div class="about-inner">
+<div class="reveal">
+<div class="section-label">// About</div>
+<h2 class="section-title">A 21st Century Solution to a 21st Century Problem.</h2>
+<p class="about-body">
+HiFi Carbon wants to change the carbon conversation. Founded in 2025 by a leading researcher and an over-caffeinated engineer, HiFi Carbon's solution represents a new prism to view energy production — a prism that will change the way we think about our world and our atmosphere.
+</p>
+<p class="about-body" style="margin-top: 1rem;">
+HiFi Carbon believes this solution will allow for a shared vision of the future of energy — a new technical lens that will allow us to leverage existing infrastructure, lower costs, and facilitate the development of new, valuable industries.
+</p>
+</div>
+</div>
 </section>
 
 <!-- TEAM -->
 <section id="team">
-  <div class="reveal">
-    <div class="section-label">// Team</div>
-    <h2 class="section-title">Built by those who've done it before.</h2>
-  </div>
-
-  <div class="team-grid reveal">
-    <div class="team-card">
-      <div class="team-avatar">KH</div>
-      <div class="team-name">Kevin Hederman</div>
-      <div class="team-role">CEO & Co-Founder</div>
-      <p class="team-bio">Engineer and technical generalist. Over 2 decades of experience working on upgrading today's energy systems to supply tomorrow's energy demands. Design engineer (Houston), construction engineer (Pennsylvania), operations manager (Boston), and organization builder (2012 - present). </p>
-    </div>
-    <div class="team-card">
-      <div class="team-avatar">JD</div>
-      <div class="team-name">Dr. Joshua Dean</div>
-      <div class="team-role">CTO & Co-Founder</div>
-      <p class="team-bio">Research Professor and scientist with over 15 years experience leading international research consortia to trace global carbon cycles. Philip Leverhulme Prize winner featured on the cover of the leading scientific journal Nature, UK Research & Innovation Future Leaders Fellow, Principal Investigator (University of Bristol, since 2022), permanent member of faculty (University of Liverpool, 2018-2022).</p>
-    </div>
-    <div class="team-card">
-      <div class="team-avatar">CH</div>
-      <div class="team-name">Chang Hong</div>
-      <div class="team-role">General Counsel</div>
-      <p class="team-bio">Extensive experience in early-stage biotech and sustainability companies. Over 2 decades as in-house counsel for renewable fuel, biotech, pharma, and high-tech companies, both public and private. Hands-on experience and a deep understanding of legal, R&D, operations, and commercialization activities necessary to execute on the vision.</p>
-    </div>
-  </div>
+<div class="reveal">
+<div class="section-label">// Team</div>
+<h2 class="section-title">Built by those who've done it before.</h2>
+</div>
+<div class="team-grid reveal">
+<div class="team-card">
+<div class="team-avatar">KH</div>
+<div class="team-name">Kevin Hederman</div>
+<div class="team-role">CEO & Co-Founder</div>
+<p class="team-bio">Engineer and technical generalist. Over 2 decades of experience working on upgrading today's energy systems to supply tomorrow's energy demands. Design engineer (Houston), construction engineer (Pennsylvania), operations manager (Boston), and organization builder (2012 - present). </p>
+</div>
+<div class="team-card">
+<div class="team-avatar">JD</div>
+<div class="team-name">Dr. Joshua Dean</div>
+<div class="team-role">CTO & Co-Founder</div>
+<p class="team-bio">Research Professor and scientist with over 15 years experience leading international research consortia to trace global carbon cycles. Philip Leverhulme Prize winner featured on the cover of the leading scientific journal Nature, UK Research & Innovation Future Leaders Fellow, Principal Investigator (University of Bristol, since 2022), permanent member of faculty (University of Liverpool, 2018-2022).</p>
+</div>
+<div class="team-card">
+<div class="team-avatar">CH</div>
+<div class="team-name">Chang Hong</div>
+<div class="team-role">General Counsel</div>
+<p class="team-bio">Extensive experience in early-stage biotech and sustainability companies. Over 2 decades as in-house counsel for renewable fuel, biotech, pharma, and high-tech companies, both public and private. Hands-on experience and a deep understanding of legal, R&D, operations, and commercialization activities necessary to execute on the vision.</p>
+</div>
+</div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="contact-inner">
-    <div class="reveal">
-      <div class="section-label">// Contact</div>
-      <h2 class="section-title">Let's build the future together.</h2>
-      <p class="contact-sub">
-        Whether you're a potential partner, investor, or just curious about what we're building — we'd love to hear from you.
-      </p>
-      <div style="margin-top: 3rem; display: flex; flex-direction: column; gap: 1.2rem;">
-        <div>
-          <div style="font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem;">Email</div>
-          <div style="font-size: 0.9rem; color: var(--muted);"><a href="mailto:kevin@hificarbon.com" style="color: var(--muted); text-decoration: none;">info@hificarbon.com</a></div>
-        </div>
-        <div>
-          <div style="font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem;">Location</div>
-          <div style="font-size: 0.9rem; color: var(--muted);">Arlington, MA & Bristol, UK</div>
-        </div>
-      </div>
-    </div>
+<div class="contact-inner">
+<div class="reveal">
+<div class="section-label">// Contact</div>
+<h2 class="section-title">Let's build the future together.</h2>
+<p class="contact-sub">
+Whether you're a potential partner, investor, or just curious about what we're building — we'd love to hear from you.
+</p>
+<div style="margin-top: 3rem; display: flex; flex-direction: column; gap: 1.2rem;">
+<div>
+<div style="font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem;">Email</div>
+<div style="font-size: 0.9rem; color: var(--muted);"><a href="mailto:info@hificarbon.com" style="color: var(--muted); text-decoration: none;">info@hificarbon.com</a></div>
+</div>
+<div>
+<div style="font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem;">Location</div>
+<div style="font-size: 0.9rem; color: var(--muted);">Arlington, MA & Bristol, UK</div>
+</div>
+</div>
+</div>
 
-    <form class="contact-form reveal" onsubmit="return false;">
-      <div class="form-row">
-        <div class="form-group">
-          <label>First name</label>
-          <input type="text" placeholder="Anika">
-        </div>
-        <div class="form-group">
-          <label>Last name</label>
-          <input type="text" placeholder="Kessler">
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="you@company.com">
-      </div>
-      <div class="form-group">
-        <label>I'm reaching out as a…</label>
-        <select style="background: var(--panel); border: 1px solid var(--border); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 0.85rem 1rem; outline: none; width: 100%; appearance: none; cursor: pointer;">
-          <option value="">Select one</option>
-          <option>Potential partner</option>
-          <option>Investor</option>
-          <option>Researcher / Academic</option>
-          <option>Press / Media</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Message</label>
-        <textarea placeholder="Tell us what's on your mind…"></textarea>
-      </div>
-      <button class="form-submit" type="submit">Send Message</button>
-    </form>
-  </div>
+<form class="contact-form reveal" id="contactForm" action="https://formspree.io/f/xeajkzej" method="POST">
+<div class="form-row">
+<div class="form-group">
+<label>First name</label>
+<input type="text" name="first_name" placeholder="Sharon" required>
+</div>
+<div class="form-group">
+<label>Last name</label>
+<input type="text" name="last_name" placeholder="Charbonneau" required>
+</div>
+</div>
+<div class="form-group">
+<label>Email</label>
+<input type="email" name="email" placeholder="you@company.com" required>
+</div>
+<div class="form-group">
+<label>I'm reaching out as a…</label>
+<select name="reason" style="background: var(--panel); border: 1px solid var(--border); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 0.85rem 1rem; outline: none; width: 100%; appearance: none; cursor: pointer;">
+<option value="">Select one</option>
+<option>Potential partner</option>
+<option>Investor</option>
+<option>Researcher / Academic</option>
+<option>Press / Media</option>
+<option>Other</option>
+</select>
+</div>
+<div class="form-group">
+<label>Message</label>
+<textarea name="message" placeholder="Tell us what's on your mind…" required></textarea>
+</div>
+<button class="form-submit" type="submit">Send Message</button>
+<p class="form-status" id="formStatus"></p>
+</form>
+</div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">HiFi <span>Carbon</span></div>
-  <p class="footer-copy">© 2025 HiFi Carbon Inc. All rights reserved.</p>
-  <ul class="footer-links">
-    <li><a href="#">Privacy</a></li>
-    <li><a href="#">Terms</a></li>
-    <li><a href="#">LinkedIn</a></li>
-  </ul>
+<div class="footer-logo">HiFi <span>Carbon</span></div>
+<p class="footer-copy">© 2025 HiFi Carbon Inc. All rights reserved.</p>
+<ul class="footer-links">
+<li><a href="#">Privacy</a></li>
+<li><a href="#">Terms</a></li>
+<li><a href="#">LinkedIn</a></li>
+</ul>
 </footer>
 
 <script>
-  const grid = document.getElementById('hexGrid');
-  if (grid) {
-    const count = 60;
-    const litIndices = new Set([2, 7, 11, 15, 20, 25, 30, 35, 40, 45]);
-    for (let i = 0; i < count; i++) {
-      const h = document.createElement('div');
-      h.className = 'hex' + (litIndices.has(i) ? ' lit' : '');
-      grid.appendChild(h);
-    }
-    setInterval(() => {
-      const hexes = grid.querySelectorAll('.hex');
-      const idx = Math.floor(Math.random() * hexes.length);
-      hexes[idx].classList.toggle('lit');
-    }, 300);
-  }
+const grid = document.getElementById('hexGrid');
+if (grid) {
+const count = 60;
+const litIndices = new Set([2, 7, 11, 15, 20, 25, 30, 35, 40, 45]);
+for (let i = 0; i < count; i++) {
+const h = document.createElement('div');
+h.className = 'hex' + (litIndices.has(i) ? ' lit' : '');
+grid.appendChild(h);
+}
+setInterval(() => {
+const hexes = grid.querySelectorAll('.hex');
+const idx = Math.floor(Math.random() * hexes.length);
+hexes[idx].classList.toggle('lit');
+}, 300);
+}
 
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(r => observer.observe(r));
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(e => {
+if (e.isIntersecting) {
+e.target.classList.add('visible');
+observer.unobserve(e.target);
+}
+});
+}, { threshold: 0.12 });
+reveals.forEach(r => observer.observe(r));
+
+// Contact form submission (AJAX to Formspree so the page doesn't reload)
+const contactForm = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
+if (contactForm) {
+contactForm.addEventListener('submit', async (e) => {
+e.preventDefault();
+const submitBtn = contactForm.querySelector('.form-submit');
+submitBtn.disabled = true;
+submitBtn.textContent = 'Sending…';
+formStatus.className = 'form-status';
+formStatus.textContent = '';
+
+try {
+const response = await fetch(contactForm.action, {
+method: 'POST',
+body: new FormData(contactForm),
+headers: { 'Accept': 'application/json' }
+});
+
+if (response.ok) {
+formStatus.textContent = "Thanks — we'll be in touch soon.";
+formStatus.className = 'form-status success';
+contactForm.reset();
+} else {
+const data = await response.json().catch(() => null);
+formStatus.textContent = (data && data.errors)
+? data.errors.map(err => err.message).join(', ')
+: 'Something went wrong. Please try again or email us directly.';
+formStatus.className = 'form-status error';
+}
+} catch (err) {
+formStatus.textContent = 'Network error — please try again or email us directly.';
+formStatus.className = 'form-status error';
+} finally {
+submitBtn.disabled = false;
+submitBtn.textContent = 'Send Message';
+}
+});
+}
 </script>
 </body>
 </html>
