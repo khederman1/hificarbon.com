@@ -336,6 +336,87 @@ font-size: 0.85rem;
 color: var(--muted);
 line-height: 1.75;
 }
+/* NEWS */
+#news {
+background: var(--black);
+border-top: 1px solid var(--border);
+}
+.news-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 2rem;
+margin-top: 4rem;
+}
+.news-card {
+display: flex;
+flex-direction: column;
+border: 1px solid var(--border);
+background: var(--panel);
+text-decoration: none;
+color: var(--text);
+transition: border-color 0.2s, transform 0.2s;
+overflow: hidden;
+}
+.news-card:hover {
+border-color: var(--border-bright);
+transform: translateY(-4px);
+}
+.news-thumb {
+width: 100%;
+aspect-ratio: 3 / 4;
+background: var(--dark);
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+border-bottom: 1px solid var(--border);
+}
+.news-thumb img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.news-body {
+padding: 1.5rem;
+display: flex;
+flex-direction: column;
+gap: 0.75rem;
+flex: 1;
+}
+.news-tag {
+font-family: 'DM Mono', monospace;
+font-size: 0.62rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--accent);
+}
+.news-headline {
+font-family: 'Rajdhani', sans-serif;
+font-weight: 700;
+font-size: 1.05rem;
+line-height: 1.3;
+letter-spacing: -0.01em;
+}
+.news-blurb {
+font-size: 0.85rem;
+color: var(--muted);
+line-height: 1.7;
+flex: 1;
+}
+.news-link {
+font-family: 'DM Mono', monospace;
+font-size: 0.68rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(--text);
+display: inline-flex;
+align-items: center;
+gap: 0.4rem;
+margin-top: 0.25rem;
+}
+.news-link::after { content: '→'; transition: transform 0.2s; }
+.news-card:hover .news-link::after { transform: translateX(3px); }
+
 /* CONTACT */
 #contact {
 background: var(--black);
@@ -484,6 +565,7 @@ footer { flex-direction: column; gap: 1.5rem; text-align: center; }
 <ul class="nav-links">
 <li><a href="#about">About</a></li>
 <li><a href="#team">Team</a></li>
+<li><a href="#news">Updates</a></li>
 <li><a href="#contact">Contact</a></li>
 </ul>
 <a href="#contact" class="nav-cta">Get in touch</a>
@@ -548,6 +630,27 @@ HiFi Carbon believes this solution will allow for a shared vision of the future 
 </div>
 </section>
 
+<!-- NEWS -->
+<section id="news">
+<div class="reveal">
+<div class="section-label">// Updates</div>
+<h2 class="section-title">HiFi in the News.</h2>
+</div>
+<div class="news-grid reveal">
+<a class="news-card" href="https://www.nature.com/nature/volumes/642/issues/8066" target="_blank" rel="noopener noreferrer">
+<div class="news-thumb">
+<img src="https://media.springernature.com/w440/springer-static/cover-hires/journal/41586/642/8066" alt="Cover of Nature, Volume 642 Issue 8066" loading="lazy">
+</div>
+<div class="news-body">
+<div class="news-tag">Nature · Cover Feature</div>
+<div class="news-headline">Featured on the cover of Nature</div>
+<p class="news-blurb">HiFi co-founder Joshua Dean's research was featured on the cover of the journal Nature.</p>
+<span class="news-link">Read the issue</span>
+</div>
+</a>
+</div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
 <div class="contact-inner">
@@ -573,11 +676,11 @@ Whether you're a potential partner, investor, or just curious about what we're b
 <div class="form-row">
 <div class="form-group">
 <label>First name</label>
-<input type="text" name="first_name" placeholder="Sharon" required>
+<input type="text" name="first_name" placeholder="Anika" required>
 </div>
 <div class="form-group">
 <label>Last name</label>
-<input type="text" name="last_name" placeholder="Charbonneau" required>
+<input type="text" name="last_name" placeholder="Kessler" required>
 </div>
 </div>
 <div class="form-group">
