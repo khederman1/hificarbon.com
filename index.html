@@ -349,7 +349,8 @@ margin-top: 4rem;
 }
 .news-card {
 display: flex;
-flex-direction: column;
+flex-direction: row;
+align-items: stretch;
 border: 1px solid var(--border);
 background: var(--panel);
 text-decoration: none;
@@ -362,14 +363,15 @@ border-color: var(--border-bright);
 transform: translateY(-4px);
 }
 .news-thumb {
-width: 100%;
+flex: none;
+width: 90px;
 aspect-ratio: 3 / 4;
 background: var(--dark);
 display: flex;
 align-items: center;
 justify-content: center;
 overflow: hidden;
-border-bottom: 1px solid var(--border);
+border-right: 1px solid var(--border);
 }
 .news-thumb img {
 width: 100%;
